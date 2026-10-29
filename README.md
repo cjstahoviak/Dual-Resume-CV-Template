@@ -50,6 +50,10 @@ The style is based on [Jake's Resume](https://github.com/jakegut/resume).
    to `cv.tex` to view the CV. Overleaf picks a main document on import,
    and it may pick the wrong one.
 3. Edit in Overleaf, then push to GitHub from Overleaf's GitHub sync dialog.
+   The first sync may stop with an error about GitHub Workflow files: the
+   repository contains the build workflow, and Overleaf needs GitHub's
+   `workflow` permission to sync it. Choose **Authorize GitHub Workflow
+   files** and sync again.
 
 Overleaf syncs only the default branch (`main`). Nothing syncs on its own:
 changes made on GitHub reach Overleaf only when you pull them from that same
