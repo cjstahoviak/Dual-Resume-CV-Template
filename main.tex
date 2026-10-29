@@ -1,0 +1,24 @@
+%-------------------------------------------
+% main.tex
+% The document shared by resume.tex and cv.tex.
+% Compile one of those: they pick the version,
+% this file picks the sections and their order.
+%-------------------------------------------
+
+\input{sections/preamble}
+\input{sections/macros}
+
+\begin{document}
+
+\input{sections/heading}
+\input{sections/education}
+\input{sections/experience}
+\input{sections/skills}
+\ifcv
+    \input{sections/projects}
+    \input{sections/awards}
+    \input{sections/volunteering}
+\fi
+\input{sections/publications}
+
+\end{document}

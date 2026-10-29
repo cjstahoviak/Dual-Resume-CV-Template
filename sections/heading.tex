@@ -1,0 +1,27 @@
+%-------------------------------------------
+% heading.tex
+% Contact header, shared by resume and CV,
+% then a summary that differs between them.
+%-------------------------------------------
+
+\begin{center}
+    \textbf{\Huge \scshape Jordan Avery} \\ \vspace{1pt}
+    \small +1 (555) 010-0142 $|$
+    \href{mailto:jordan.avery@example.com}{\underline{jordan.avery@example.com}} $|$
+    \href{https://jordanavery.example.com/}{\underline{jordanavery.example.com}}
+    % \resumeonly{...}: in the resume only. Here, a link to the full CV.
+    \resumeonly{$|$ \href{https://jordanavery.example.com/cv}{\underline{Full CV}}}
+    \\ \vspace{2pt}
+    % Optional highlight line: clearance, citizenship, availability, etc.
+    \small \textbf{Open to Relocation}
+    \\ \vspace{2pt}
+
+% \cvresume{CV text}{resume text}: the CV gets the first argument, the
+% resume the second. Here the CV's summary is longer.
+\cvresume{%
+    \small Embedded software engineer with an M.S. in Electrical Engineering, building firmware, control software, and test infrastructure for battery-powered robots. Experience spans real-time systems, motor control, sensor fusion, and hardware-in-the-loop testing, with published work in battery state estimation and motor characterization.
+}{%
+    \small Embedded software engineer with an M.S. in Electrical Engineering, building firmware and control software for battery-powered robots. Published in battery state estimation and motor characterization.
+}
+
+\end{center}

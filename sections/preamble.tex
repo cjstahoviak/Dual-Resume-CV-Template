@@ -1,0 +1,90 @@
+%-------------------------------------------
+% preamble.tex
+% Document setup shared by the resume and CV:
+% paper, packages, margins, fonts, and the
+% section heading style. The entry commands
+% live in macros.tex.
+%
+% Based on Jake's Resume by Jake Gutierrez
+% (github.com/jakegut/resume, MIT), itself
+% based on github.com/sb2nov/resume (MIT).
+%-------------------------------------------
+
+% Paper size: letterpaper (US) or a4paper. The margins below are set
+% relative to the page, so they adapt to either.
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\input{glyphtounicode}
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\setlength{\footskip}{4.08003pt}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting. No \color in the rule's code: a color change there
+% leaves a marker that lets a page break right below the heading.
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\titlerule \vspace{-5pt}]
+
+% Ensure generated pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%----------RIGID SPACING----------
+% Every gap has a fixed size. LaTeX normally lets list, paragraph, and
+% heading spacing stretch or shrink to fill a page; here a page never
+% squeezes to fit, so content that runs long moves to the next page
+% instead. 1\skip keeps a skip's natural size but drops its stretch and
+% shrink, so the layout matches LaTeX's wherever nothing was squeezed.
+\setlist{before={\itemsep=1\itemsep\relax \parsep=1\parsep\relax
+  \topsep=1\topsep\relax \partopsep=1\partopsep\relax}}
+\topsep=1\topsep\relax  % outside lists, e.g. the centered header
+\partopsep=1\partopsep\relax
+\setlength{\parskip}{0pt}
+% titlesec spaces headings in multiples of these units; fixing the units
+% keeps its default heading spacing exactly, minus the stretch.
+\beforetitleunit=1\beforetitleunit\relax
+\aftertitleunit=1\aftertitleunit\relax
+
+%----------PAGE BREAKS----------
+% LaTeX favors a page break just before a list, which can strand an entry
+% heading at the bottom of a page with its bullets on the next. Forbid it;
+% pages can still break between bullets and between entries.
+\makeatletter
+\@beginparpenalty=10000
+\makeatother

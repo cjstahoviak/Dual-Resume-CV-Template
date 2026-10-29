@@ -1,0 +1,78 @@
+%-------------------------------------------
+% experience.tex
+% One copy of every role and bullet.
+% Resume: the shared bullets.
+% CV adds: the \cvonly bullets.
+% \cvresume bullets are worded differently
+% in each version.
+%-------------------------------------------
+
+\section{Experience}
+    \resumeSubHeadingListStart
+    \resumeOrg
+        {Halvorsen Dynamics}
+        {Seattle, WA}
+    \resumeTitle
+        {Senior Embedded Software Engineer}
+        {Mar. 2024 -- Present}
+    \resumeItemListStart
+        \resumeItem{
+            Lead firmware for a warehouse robot's drive and power systems, shipping monthly updates to a fleet of 400+ robots with no field rollbacks.
+        }
+        \resumeItem{
+            Designed a hardware-in-the-loop test rig that runs 1,200 firmware tests nightly, cutting release validation from three days to four hours.
+        }
+        \cvonly{\resumeItem{
+            Mentor three junior engineers through code review and a weekly embedded-design reading group.
+        }}
+    \resumeItemListEnd
+    % A promotion: another \resumeTitle under the same \resumeOrg. Each
+    % title can have its own bullets.
+    \resumeTitle
+        {Embedded Software Engineer}
+        {June 2021 -- Mar. 2024}
+    \resumeItemListStart
+        \resumeItem{
+            Rewrote the motor control loop for an ARM Cortex-M7, raising the control rate from 1\,kHz to 10\,kHz and reducing wheel slip by 30\%.
+        }
+        % \pubcite{key} prints the number of that entry in publications.tex.
+        \resumeItem{
+            Turned graduate research into a production state-of-charge estimator that holds 2\% error across temperature and battery age \pubcite{avery2021soc}.
+        }
+    \resumeItemListEnd
+
+    \resumeOrg
+        {Cedar Ridge University}
+        {Portland, OR}
+    \resumeTitle
+        {Graduate Research Assistant}
+        {Aug. 2019 -- May 2021}
+    \resumeItemListStart
+        \resumeItem{
+            Developed a model-based state-of-charge estimator for small robots, validated over 40 battery cycles \pubcite{avery2021soc}.
+        }
+        \resumeItem{
+            Built an automated battery-cycling rig that ran the thesis experiments unattended for weeks at a time.
+        }
+        \cvonly{\resumeItem{
+            Co-designed a low-cost brushless motor test bench, later adopted by two other labs \pubcite{lin2020bench}.
+        }}
+    \resumeItemListEnd
+
+    \resumeOrg
+        {Larkspur Solar Systems}
+        {Boise, ID}
+    \resumeTitle
+        {Firmware Engineering Intern}
+        {May 2018 -- Aug. 2018}
+    \resumeItemListStart
+        \cvresume{\resumeItem{
+            Wrote a Bluetooth Low Energy driver and a command-line logging tool for solar charge controllers, which the field team adopted for on-site diagnostics.
+        }}{\resumeItem{
+            Wrote a Bluetooth Low Energy driver and logging tool for solar charge controllers.
+        }}
+        \resumeItem{
+            Automated the charge controller test suite in Python, catching two firmware regressions before release.
+        }
+    \resumeItemListEnd
+    \resumeSubHeadingListEnd

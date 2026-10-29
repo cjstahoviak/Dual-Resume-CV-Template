@@ -1,0 +1,11 @@
+# LaTeX build output. The PDFs are built by the GitHub Actions workflow.
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+resume.pdf
+cv.pdf
+main.pdf

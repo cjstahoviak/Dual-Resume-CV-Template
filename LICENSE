@@ -19,3 +19,17 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+--------------------------------------------------------------------------------
+
+Portions of this template, chiefly the page layout and entry commands in
+sections/preamble.tex and sections/macros.tex, are derived from Jake's Resume
+(https://github.com/jakegut/resume):
+
+Copyright (c) 2020 Jake Gutierrez
+
+which is itself based on https://github.com/sb2nov/resume:
+
+Copyright (c) 2026 Sourabh Bajaj
+
+Both are distributed under the MIT License, whose terms are reproduced above.

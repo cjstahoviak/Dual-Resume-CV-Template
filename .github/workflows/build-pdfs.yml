@@ -1,0 +1,125 @@
+name: Build and publish PDFs
+
+# Builds the resume (resume.tex) and CV (cv.tex) on every push to main,
+# including pushes from Overleaf.
+#   - The PDFs are always attached to the run as a downloadable artifact:
+#     Actions tab > the run > Artifacts.
+#   - With PUBLISH_PAGES set to true, they are also published with GitHub
+#     Pages as <PDF_NAME>_Resume.pdf and <PDF_NAME>_CV.pdf. Turn Pages on
+#     first: Settings > Pages > Source: GitHub Actions.
+# A LaTeX error or an undefined \pubcite reference fails the build and
+# nothing is published, so the previous PDFs stay live.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  # Output file names: <PDF_NAME>_Resume.pdf and <PDF_NAME>_CV.pdf.
+  PDF_NAME: Jordan_Avery
+  # "true": also publish the PDFs with GitHub Pages. "false": build only.
+  PUBLISH_PAGES: "false"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    # Pinned so the TeX Live version only changes when this line does.
+    runs-on: ubuntu-24.04
+    outputs:
+      publish: ${{ env.PUBLISH_PAGES }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install TeX Live
+        # cm-super supplies the same Type 1 fonts Overleaf uses.
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-latex-base texlive-latex-recommended \
+            texlive-latex-extra texlive-fonts-recommended \
+            cm-super poppler-utils
+
+      - name: Build resume and CV
+        run: |
+          for doc in resume cv; do
+            # Two passes so the \pubcite numbers resolve.
+            for pass in 1 2; do
+              pdflatex -interaction=nonstopmode -halt-on-error \
+                -file-line-error "$doc.tex" > "$doc-pass$pass.txt" || {
+                tail -n 40 "$doc-pass$pass.txt"
+                echo "::error file=$doc.tex::LaTeX failed on pass $pass"
+                exit 1
+              }
+            done
+            # A missing \pubitem key would print as [??] in the PDF.
+            if grep -q "Reference .* undefined" "$doc.log"; then
+              grep "Reference .* undefined" "$doc.log"
+              echo "::error file=$doc.tex::Undefined reference; check \pubcite keys"
+              exit 1
+            fi
+          done
+          pages=$(pdfinfo resume.pdf | awk '/^Pages:/ {print $2}')
+          echo "Resume: $pages page(s); CV: $(pdfinfo cv.pdf | awk '/^Pages:/ {print $2}') page(s)"
+          if [ "$pages" -ne 1 ]; then
+            echo "::warning file=resume.tex::The resume is $pages pages, not 1"
+          fi
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp resume.pdf "_site/${PDF_NAME}_Resume.pdf"
+          cp cv.pdf "_site/${PDF_NAME}_CV.pdf"
+          name="${PDF_NAME//_/ }"
+          cat > _site/index.html <<EOF
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="color-scheme" content="light dark">
+            <meta name="robots" content="noindex">
+            <title>${name}: Resume and CV</title>
+          </head>
+          <body style="font-family: sans-serif; margin: 3rem auto; max-width: 32rem; padding: 0 1rem">
+            <h1>${name}</h1>
+            <ul>
+              <li><a href="${PDF_NAME}_Resume.pdf">Resume (PDF)</a></li>
+              <li><a href="${PDF_NAME}_CV.pdf">CV (PDF)</a></li>
+            </ul>
+          </body>
+          </html>
+          EOF
+
+      - name: Attach PDFs to the run
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PDF_NAME }}_PDFs
+          path: _site/*.pdf
+
+      - name: Upload Pages artifact
+        if: env.PUBLISH_PAGES == 'true'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: needs.build.outputs.publish == 'true'
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

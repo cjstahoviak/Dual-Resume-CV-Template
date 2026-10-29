@@ -1,0 +1,89 @@
+%-------------------------------------------
+% macros.tex
+% The resume/CV switch and the commands every
+% section uses to lay out entries.
+%
+% Based on Jake's Resume by Jake Gutierrez
+% (github.com/jakegut/resume, MIT), itself
+% based on github.com/sb2nov/resume (MIT).
+%-------------------------------------------
+
+%----------RESUME OR CV----------
+% cv.tex defines \buildcv before loading this file; any other root
+% (resume.tex) builds the one-page resume.
+\newif\ifcv
+\ifdefined\buildcv \cvtrue \fi
+
+% Write each entry once and mark only what differs between the versions:
+%   \cvonly{...}             CV only
+%   \resumeonly{...}         resume only
+%   \cvresume{CV}{resume}    different text in each
+% Arguments can't hold verbatim text; escape any % or # in a URL.
+\newcommand{\cvonly}[1]{\ifcv\ignorespaces#1\fi\ignorespaces}
+\newcommand{\resumeonly}[1]{\ifcv\else\ignorespaces#1\fi\ignorespaces}
+\newcommand{\cvresume}[2]{%
+  \ifcv\ignorespaces#1\else\ignorespaces#2\fi\ignorespaces}
+
+%----------ENTRY COMMANDS----------
+% \unskip drops the trailing space of #1; without it, a bullet that exactly
+% fills its last line breaks at that space and adds an empty line.
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1\unskip\vspace{-2pt}}
+  }
+}
+
+% One full-width row: #1 flush left, #2 flush right. Every heading below
+% is built from it. \nopagebreak keeps each row on the same page as what
+% follows it: the next row of the heading, or its first bullet.
+\newcommand{\resumeRow}[2]{%
+  \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+    #1 & #2 \\
+  \end{tabular*}\nopagebreak\vspace{-7pt}%
+}
+
+% Bold organization (employer or university) and its location.
+\newcommand{\resumeOrg}[2]{%
+  \vspace{-2pt}\item
+  \resumeRow{\textbf{#1}}{#2}%
+}
+
+% Italic title (job title or degree) and its dates. Repeat it for
+% promotions; bullets may follow any title.
+\newcommand{\resumeTitle}[2]{%
+  \vspace{-2pt}\item
+  \resumeRow{\textit{\small#1}}{\textit{\small #2}}%
+}
+
+\newcommand{\resumeProjectHeading}[2]{%
+  \item
+  \resumeRow{\small#1}{#2}%
+}
+
+\newcommand{\resumeSubItem}[1]{
+  \resumeItem{#1}\vspace{-4pt}
+}
+
+\renewcommand\labelitemii{
+  $\vcenter{\hbox{\tiny$\bullet$}}$
+}
+
+\newcommand{\resumeSubHeadingListStart}{
+  \begin{itemize}[leftmargin=0.15in, label={}]
+}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{
+  \end{itemize}\vspace{-5pt}
+}
+
+%----------PUBLICATIONS----------
+% \pubitem{key}{citation} numbers an entry in the Publications list;
+% \pubcite{key} prints its number, e.g. [2], anywhere else.
+\newcounter{pubcounter}
+\newcommand{\pubitem}[2]{
+  \refstepcounter{pubcounter}
+  \label{pub:#1}
+  \item[{\small[\thepubcounter]}] #2
+}
+\newcommand{\pubcite}[1]{[\ref{pub:#1}]}

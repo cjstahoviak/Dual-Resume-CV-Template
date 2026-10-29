@@ -1,0 +1,56 @@
+%-------------------------------------------
+% education.tex
+% Both degrees under one university heading.
+% Resume: MS with a one-line thesis note; BS.
+% CV adds: full thesis title, coursework,
+%          and teaching.
+%-------------------------------------------
+
+\section{Education}
+    \resumeSubHeadingListStart
+    % \resumeOrg starts an entry: organization, location.
+    \resumeOrg
+        {Cedar Ridge University}
+        {Portland, OR}
+    % \resumeTitle adds a row under it: title (here a degree), dates.
+    \resumeTitle
+        {Master of Science in Electrical Engineering, GPA: 3.92}
+        {Aug. 2019 -- May 2021}
+    \resumeItemListStart
+        \cvresume{\resumeItem{
+            \textbf{Thesis:} \textit{Model-Based State-of-Charge Estimation for Small Robotic Platforms}
+        }}{\resumeItem{
+            Thesis on battery state-of-charge estimation for small robots \pubcite{avery2021soc}.
+        }}
+        % \cvonly{...}: this bullet appears in the CV only.
+        \cvonly{\resumeItem{
+            \textbf{Relevant Coursework:}
+            Embedded Systems Design,
+            Linear Systems,
+            Estimation Theory,
+            Digital Signal Processing,
+            Real-Time Operating Systems
+        }}
+    \resumeItemListEnd
+    % A second \resumeTitle under the same \resumeOrg: a second degree from
+    % the same school, so the school is listed once.
+    \resumeTitle
+        {Bachelor of Science in Computer Engineering}
+        {Aug. 2015 -- May 2019}
+    % \cvonly can also wrap a whole bullet list.
+    \cvonly{%
+    \resumeItemListStart
+        \resumeItem{
+            \textbf{Relevant Coursework:}
+            Microcontroller Systems,
+            Computer Architecture,
+            Signals and Systems,
+            Control Systems,
+            Data Structures \& Algorithms
+        }
+        \resumeItem{
+            Teaching assistant for Introduction to Embedded Systems (2018--2019).
+        }
+    \resumeItemListEnd
+    }
+    \resumeSubHeadingListEnd
